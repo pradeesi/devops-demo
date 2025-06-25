@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_arab_bank_blue():
-    return "<h1 style='color: green;'>Hello Arab Bank.    Ver:2</h1>" # Renamed function for clarity, but not strictly necessary for the fix
+    return "<h1 style='color: red;'>Hello Arab Bank.    Ver:3</h1>" # Renamed function for clarity, but not strictly necessary for the fix
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000)) # Get PORT from environment, default to 5000 for local dev
