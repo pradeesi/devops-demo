@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-arab-bank-deployment
+  labels:
+    app: hello-arab-bank
+spec:
+  replicas: 1 # Starts with 1 pods for basic availability
+  selector:
+    matchLabels:
+      app: hello-arab-bank
+  template:
+    metadata:
+      labels:
+        app: hello-arab-bank
+    spec:
+      containers:
+      - name: hello-arab-bank-container
+        image: us-central1-docker.pkg.dev/maf-testing-387011/arab-bank-repo/hello-arab-bank:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-arab-bank-service
+spec:
+  type: LoadBalancer # Exposes the service externally using a cloud provider's load balancer
+  selector:
+    app: hello-arab-bank # Selects the pods managed by the deployment above
+  ports:
+    - protocol: TCP
+      port: 80 # The port the service is exposed on externally
+      targetPort: 8080 # The port to forward traffic to on the pods
